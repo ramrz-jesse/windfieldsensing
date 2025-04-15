@@ -43,8 +43,8 @@ def update(frame):
     V_speed = V[grid_y, grid_x] * 10  # Scale for visualization
     
     # Add noise to speed and direction
-    noise_speed = np.random.normal(0, 0.2)  # Mean 0, standard deviation 0.5
-    noise_direction = np.random.normal(0, 1)  # Mean 0, standard deviation 2 degrees
+    noise_speed = np.random.normal(0, 0.2)  # Mean 0, standard deviation 0.2
+    noise_direction = np.random.normal(0, 1)  # Mean 0, standard deviation 1 degrees
 
     speed = np.sqrt(U_speed**2 + V_speed**2)    
 
@@ -56,6 +56,29 @@ def update(frame):
 
     print(f"Frame: {frame},Position: {grid_x,grid_y} Speed: {speed:.2f}, Direction: {direction_deg:.2f} degrees")
     
+    drone_count = 8
+    for i in range(drone_count):
+        drone_x = new_x
+        drone_y = (new_y + i * (2 * np.pi / drone_count)) % (2 * np.pi)
+        plt.plot(drone_x, drone_y, 'bo', markersize=5)  # Plot the drones
+        # Print data for each drone
+        drone_grid_x = int(np.clip(np.round((drone_x / (2 * np.pi)) * 31), 0, 31))
+        drone_grid_y = int(np.clip(np.round((drone_y / (2 * np.pi)) * 31), 0, 31))
+        drone_U_speed = U[drone_grid_y, drone_grid_x] * 10  # Scale for visualization
+        drone_V_speed = V[drone_grid_y, drone_grid_x] * 10  # Scale for visualization
+
+        # Add noise to speed and direction
+        drone_noise_speed = np.random.normal(0, 0.2)  # Mean 0, standard deviation 0.2
+        drone_noise_direction = np.random.normal(0, 1)  # Mean 0, standard deviation 1 degrees
+
+        drone_speed = np.sqrt(drone_U_speed**2 + drone_V_speed**2)
+        drone_direction = np.arctan2(drone_V_speed, drone_U_speed)  # Angle in radians
+        drone_direction_deg = np.degrees(drone_direction)  # Convert to degrees
+
+        drone_speed += drone_noise_speed
+        drone_direction_deg += drone_noise_direction
+
+        print(f"Drone {i+1} | Position: {drone_grid_x, drone_grid_y} | Speed: {drone_speed:.2f} | Direction: {drone_direction_deg:.2f} degrees")
     plt.plot(new_x, new_y, 'ro', markersize=5)  # Plot the sweeping point
 
 # Create the animation
