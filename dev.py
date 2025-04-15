@@ -78,7 +78,7 @@ def update(frame):
             if file.tell() == 0:  # Write header only if the file is empty
                 file.write("Position_X,Position_Y,Speed_X,Speed_Y\n")
             file.write(f"{drone_grid_x},{drone_grid_y},{drone_U_speed},{drone_V_speed}\n")
-    plt.plot(new_x, new_y, 'ro', markersize=5)  # Plot the sweeping point
+    plt.plot(new_x, new_y, 'bo', markersize=5)  # Starting drone position
 
 # Create the animation
 fig = plt.figure(figsize=(8, 8))
