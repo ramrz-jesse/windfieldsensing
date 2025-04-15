@@ -41,10 +41,19 @@ def update(frame):
     # convert U and V to NSEW and get speed
     U_speed = U[grid_y, grid_x] * 10  # Scale for visualization
     V_speed = V[grid_y, grid_x] * 10  # Scale for visualization
+    
+    # Add noise to speed and direction
+    noise_speed = np.random.normal(0, 0.2)  # Mean 0, standard deviation 0.5
+    noise_direction = np.random.normal(0, 1)  # Mean 0, standard deviation 2 degrees
+
     speed = np.sqrt(U_speed**2 + V_speed**2)    
 
     direction = np.arctan2(V_speed, U_speed)  # Angle in radians
     direction_deg = np.degrees(direction)  # Convert to degrees
+
+    speed += noise_speed
+    direction_deg += noise_direction
+
     print(f"Frame: {frame},Position: {grid_x,grid_y} Speed: {speed:.2f}, Direction: {direction_deg:.2f} degrees")
     
     plt.plot(new_x, new_y, 'ro', markersize=5)  # Plot the sweeping point
