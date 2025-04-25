@@ -14,8 +14,8 @@ z = np.arange(0, domainSize + 1, 2)
 X, Y, Z = np.meshgrid(x, y, z)
 
 u = 1.0 + 0.3 * np.sin(Y * 2) + 0.1 * np.random.randn(*Y.shape)
-v = 0.1 * np.sin(Y * 2) + 0.1 * np.random.randn(*X.shape)
-w = 0.1 * np.sin(Y * 2) + 0.1 * np.random.randn(*Z.shape)
+v = 0.1 * np.sin(X * 2) + 0.1 * np.random.randn(*X.shape)
+w = 0.1 * np.sin(Z * 2) + 0.1 * np.random.randn(*Z.shape)
 
 ax.quiver(X, Y, Z, u, v, w, normalize=True)
 ax.set_xlabel('X-axis')
