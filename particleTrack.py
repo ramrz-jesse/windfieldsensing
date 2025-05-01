@@ -7,7 +7,7 @@ droneCount = 1  # Number of drones to simulate
 t_tod = 5 # Time of deployment in seconds
 t_simDur = 30 # Duration of simulation in seconds
 
-# np.random.seed(0)  # Comment line out to provide repoqduciblility
+# np.random.seed(0)  # Comment line out to provide reproducibility
 
 # Create grid based on domain size
 domainSize = 10
