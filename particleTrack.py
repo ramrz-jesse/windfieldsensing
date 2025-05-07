@@ -17,21 +17,21 @@ prevIntegral = 0  # Previous integral of error
 
 # Create grid based on domain size
 domainSize = 10
-x = np.linspace(-domainSize, domainSize, (domainSize ** 2) + 1)
-y = np.linspace(-domainSize, domainSize, (domainSize ** 2) + 1)
+x = np.linspace(-domainSize, domainSize, (domainSize * 10) + 1)
+y = np.linspace(-domainSize, domainSize, (domainSize * 10) + 1)
 X, Y = np.meshgrid(x, y)
 
-U = 0.2 * np.sin(X * 3) + 0.1 * np.random.randn((domainSize ** 2) + 1, (domainSize ** 2) + 1)
-V = 1.0 + 0.3 * np.sin(Y * 2) + 0.1 * np.random.randn((domainSize ** 2) + 1, (domainSize ** 2) + 1)
+# U = 0.2 * np.sin(X * 3) + 0.1 * np.random.randn((domainSize ** 2) + 1, (domainSize ** 2) + 1)
+# V = 1.0 + 0.3 * np.sin(Y * 2) + 0.1 * np.random.randn((domainSize ** 2) + 1, (domainSize ** 2) + 1)
 
 # Normalize the vectors for better visualization
-magnitude = np.sqrt(U**2 + V**2)
-U /= magnitude.max()
-V /= magnitude.max()
+# magnitude = np.sqrt(U**2 + V**2)
+# U /= magnitude.max()
+# V /= magnitude.max()
 
  # Initialize particle position
-particle_x_pos = 0#np.random.uniform(-domainSize, domainSize)
-particle_y_pos = 0#np.random.uniform(-domainSize, domainSize)
+particle_x_pos = 0 #np.random.uniform(-domainSize, domainSize)
+particle_y_pos = 0 #np.random.uniform(-domainSize, domainSize)
 
 # Initialize drone position
 drone_x_pos = np.random.uniform(-domainSize, domainSize)
@@ -63,12 +63,14 @@ def update(frame):
     global particle_x_pos, particle_y_pos, drone_x_pos, drone_y_pos
 
     plt.cla()  # Clear the axes instead of the figure to retain settings
-    plt.quiver(X, Y, U, V, angles='xy', scale_units='xy')
+    # plt.quiver(X, Y, U, V, angles='xy', scale_units='xy')
     plt.title("Simulated Wind Field with Drone Particle Tracking")
     plt.xlabel("X - Axis")
     plt.ylabel("Y - Axis")
     plt.xticks(np.arange(-domainSize, domainSize + 1, 1))
     plt.yticks(np.arange(-domainSize, domainSize + 1, 1))
+    plt.xlim(-domainSize, domainSize)
+    plt.ylim(-domainSize, domainSize)
     plt.grid(True, linestyle='--', color='gray', linewidth=0.5)
     
     # Update particle position randomly
