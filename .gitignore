@@ -2,6 +2,7 @@
 \lib
 \scripts
 \share
+\bin
 .gitattributes
 pyvenv.cfg
 
