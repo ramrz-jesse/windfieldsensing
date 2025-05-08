@@ -78,12 +78,12 @@ def update(frame):
 
     if frame >= t_tod:        
         droneDist = np.sqrt((drone_x_pos - particle_x_pos)**2 + (drone_y_pos - particle_y_pos+100)**2) 
-        plt.plot(drone_x_pos, drone_y_pos, 'bo', markersize=3 , label=f'Drone')
+        plt.plot(drone_x_pos, drone_y_pos, 'bo', markersize=7 , label=f'Drone')
         plt.plot(0, domainSize, 'bo', markersize=0, label = f'Drone Dist.: {droneDist:.2f} m')
         particle_x_pos += np.random.choice([-1, 1])
         particle_y_pos += np.random.choice([-1, 1])
         # Close into the particle's position using PID control
-        target_pos = np.array([particle_x_pos, particle_y_pos]) + 10 
+        target_pos = np.array([particle_x_pos - 10, particle_y_pos + 10]) 
         velocity = pid(kp, ki,kd, target_pos, np.array([drone_x_pos, drone_y_pos]))
         drone_x_pos += velocity[0] * dt
         drone_y_pos += velocity[1] * dt
@@ -98,12 +98,11 @@ def update(frame):
     drone_y_pos = np.clip(drone_y_pos, 0, domainSize)
 
     # Update particle plot
-    plt.plot(particle_x_pos, particle_y_pos, 'ro', markersize=3, label=f'Particle')
-    plt.plot(particle_x_pos + 10, particle_y_pos + 10, 'rx', markersize=3, label=f'target')
+    plt.plot(particle_x_pos, particle_y_pos, 'ro', markersize=5, label=f'Particle')
+    plt.plot(particle_x_pos - 10, particle_y_pos + 10, 'rx', markersize=5, label=f'target')
     plt.plot(0, domainSize, 'ro', markersize=0, label = f'Time: {frame:.2f} s')
     
-    plt.legend()  # Add legend back after clearing axes
-
+    plt.legend(loc='lower right', fontsize='small', frameon=False)
 # Create animation
 fig = plt.figure(figsize=(8, 8))
 ani = FuncAnimation(fig, update, frames = t_simDur, interval = 250, repeat = True) # Set interval to 1000 for real time
