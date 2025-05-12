@@ -18,7 +18,7 @@ cmap_data[0, -1] = 0  # Last channel is alpha
 # Create new colormap
 transparent_cmap = ListedColormap(cmap_data)
 
-
+#
 
 
 drone_icon = mpimg.imread('drone.png')  # Should be a small transparent PNG
