@@ -18,10 +18,9 @@ cmap_data[0, -1] = 0  # Last channel is alpha
 # Create new colormap
 transparent_cmap = ListedColormap(cmap_data)
 
-#
-
 
 drone_icon = mpimg.imread('drone.png')  # Should be a small transparent PNG
+
 # === Load fire temperature data ===
 nc = netCDF4.Dataset('FireTemp_field.nc', 'r')
 temperature = np.squeeze(nc.variables['temperature'][:])  # Shape: (T, H, W)
@@ -29,6 +28,7 @@ temperature = np.squeeze(nc.variables['temperature'][:])  # Shape: (T, H, W)
 # === Get ignition center from frame 0 ===
 ignition_mask = temperature[0] >= 500
 ignition_indices = np.argwhere(ignition_mask)
+
 if ignition_indices.size == 0:
     raise ValueError("No fire found in frame 0.")
 ignition_center = np.mean(ignition_indices, axis=0)  # (y, x)
@@ -176,8 +176,7 @@ def update(frame):
 
 # === Animate ===
 ani = FuncAnimation(fig, update, frames=temperature.shape[0], interval=100)
+
 #save andimation as gif
 # ani.save('fire_animation.gif', writer='imagemagick', fps=60)
-# Uncomment the following line to display the animation
-# plt.show()
 plt.show()
